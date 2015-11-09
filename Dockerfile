@@ -25,6 +25,8 @@ RUN sed -i "s/;date.timezone =.*/date.timezone = UTC/" /etc/php5/cli/php.ini
 
 RUN DEBIAN_FRONTEND="noninteractive" apt-get install -y nginx
 
+RUN rm -f /etc/nginx/nginx.conf
+ADD build/nginx.conf      /etc/nginx/nginx.conf
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 RUN sed -i -e "s/;daemonize\s*=\s*yes/daemonize = no/g" /etc/php5/fpm/php-fpm.conf
 RUN sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/" /etc/php5/fpm/php.ini

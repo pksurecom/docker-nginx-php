@@ -39,7 +39,7 @@ RUN echo "extension=memcache.so" >> /etc/php5/fpm/php.ini
 #memcached
 RUN apt-get update
 RUN DEBIAN_FRONTEND="noninteractive" apt-get install -y --force-yes memcached php5-memcached
-RUN "extension=memcached.so" >> /etc/php5/fpm/php.ini
+RUN echo "extension=memcached.so" >> /etc/php5/fpm/php.ini
  
 RUN mkdir -p        /var/www
 ADD build/default   /etc/nginx/sites-available/default

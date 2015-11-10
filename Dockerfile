@@ -34,7 +34,12 @@ RUN sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/" /etc/php5/fpm/php.ini
 #memcache
 RUN pecl channel-update pecl.php.net
 RUN pecl install memcache
-RUN echo 'extension=memcache.so' >> /etc/php5/fpm/php.ini
+RUN echo "extension=memcache.so" >> /etc/php5/fpm/php.ini
+
+#memcached
+RUN apt-get update
+RUN DEBIAN_FRONTEND="noninteractive" apt-get install -y --force-yes memcached php5-memcached
+RUN "extension=memcached.so" >> /etc/php5/fpm/php.ini
  
 RUN mkdir -p        /var/www
 ADD build/default   /etc/nginx/sites-available/default

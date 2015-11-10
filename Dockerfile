@@ -31,6 +31,11 @@ RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 RUN sed -i -e "s/;daemonize\s*=\s*yes/daemonize = no/g" /etc/php5/fpm/php-fpm.conf
 RUN sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/" /etc/php5/fpm/php.ini
 
+#modify php-fpm param
+RUN sed -i "s/pm.max_children = 5/pm.max_children = 100/" /etc/php5/fpm/pool.d/www.conf
+RUN sed -i "s/pm = dynamic/pm = static/" /etc/php5/fpm/pool.d/www.conf
+RUN sed -i "s/;pm.max_requests = 500/pm.max_requests = 500/" /etc/php5/fpm/pool.d/www.conf
+
 #memcache
 RUN pecl channel-update pecl.php.net
 RUN pecl install memcache
